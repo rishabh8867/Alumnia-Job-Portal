@@ -4,7 +4,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "migration:all:up": "npx knex migrate:latest",
+    "migration:all:down": "npx knex migrate:rollback --all",
+    "migration:status": "npx knex migrate:list",
+    "seed:create": "npx knex seed:make",
+    "seed:run": "npx knex seed:run",
+    "migrations": " npx knex migrate:latest --knexfile knexfile.js",
+    "for_init": "npx knex migrate:make init --migrations-directory migrations"
   },
   "keywords": [],
   "author": "",
@@ -13,7 +20,9 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.21.1",
+    "knex": "^3.1.0",
     "mongoose": "^8.8.2",
-    "nodemon": "^3.1.7"
+    "nodemon": "^3.1.7",
+    "pg": "^8.13.1"
   }
 }

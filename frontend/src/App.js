@@ -1,11 +1,25 @@
-import React from 'react'
+import React from 'react';
+import Header from './components/Header';
+import Home from './pages/Home';
+import {BrowserRouter,Routes,Route} from 'react-router-dom';
+import EventDetails from './pages/EventDetails';
+import Timeline from './pages/Timeline';
+import AlumniSpotlights from './pages/AlumniSpotlights';
 
 export default function App() {
   return (
-    <div>
-       <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-    </div>
+    <BrowserRouter>
+
+      <Header/>
+
+    <Routes>
+      <Route path="/homepage" element={<Home />} />
+      <Route path="/event-details" element={<EventDetails />} />
+      <Route path="/timeline" element={<Timeline />} />
+      <Route path="/alumni-spotlights" element={<AlumniSpotlights />} />
+      
+    </Routes>
+
+   </BrowserRouter>
   )
 }

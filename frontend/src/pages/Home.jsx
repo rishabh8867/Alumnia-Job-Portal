@@ -1,5 +1,7 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import { Backdrop } from "@mui/material";
+import RegistrationForm from "../components/RegistrationForm";
 
 export default function Home() {
 
@@ -12,6 +14,14 @@ export default function Home() {
         block: 'start',     // This aligns the section to the top
       });
     }
+  };
+
+  const [open, setOpen] = useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleOpen = () => {
+    setOpen(true);
   };
 
   return (
@@ -29,7 +39,7 @@ export default function Home() {
 
         <div className="flex justify-center flex-col md:flex-row gap-2 md:space-x-8">
           {/* Register Button */}
-          <button className="bg-[#723F14] text-white hover:opacity-90 font-semibold py-2 px-8 rounded-md">
+          <button  onClick={handleOpen} className="bg-[#723F14] text-white hover:opacity-90 font-semibold py-2 px-8 rounded-md">
             Register
           </button>
           {/* Itinerary Button */}
@@ -542,7 +552,7 @@ export default function Home() {
 
   <div className="px-4 md:px-8 py-8 grid gap-6 md:grid-cols-3">
   {/* Card 1 */}
-  <div className="bg-gray-100 rounded-lg shadow-2xl p-6 text-center border border-gray-300">
+  <div className="bg-gray-100 rounded-3xl border-2 p-6 text-center border-gray-300">
     <div className="text-[#723F14] text-4xl mb-4">
       <i className="fas fa-store"></i>
     </div>
@@ -556,7 +566,7 @@ export default function Home() {
   </div>
 
   {/* Card 2 */}
-  <div className="bg-gray-100 rounded-lg shadow-2xl p-6 text-center border border-gray-300">
+  <div className="bg-gray-100 rounded-3xl border-2 p-6 text-center border-gray-300">
     <div className="text-[#723F14] text-4xl mb-4">
       <i className="fas fa-camera"></i>
     </div>
@@ -569,7 +579,7 @@ export default function Home() {
   </div>
 
   {/* Card 3 */}
-  <div className="bg-gray-100 rounded-lg shadow-2xl p-6 text-center border border-gray-300">
+  <div className="bg-gray-100 rounded-3xl border-2 p-6 text-center border-gray-300">
     <div className="text-[#723F14] text-4xl mb-4">
       <i className="fas fa-medkit"></i>
     </div>
@@ -582,7 +592,19 @@ export default function Home() {
   </div>
 </div>
 
-
+          <Backdrop
+              sx={(theme) => ({
+                color: "#fff",
+                zIndex: theme.zIndex.drawer + 1,
+              })}
+              open={open}
+              onClick={handleClose}
+            >
+               <div onClick={(e) => e.stopPropagation()}>
+                  <RegistrationForm setOpen={setOpen}/>
+                 </div>
+            </Backdrop>
+          
 
     </div>
   );

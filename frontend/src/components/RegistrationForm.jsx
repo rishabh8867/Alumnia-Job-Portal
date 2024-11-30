@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import {
   Radio,
@@ -11,6 +11,7 @@ import {
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import { CircularProgress } from "@mui/material";
 import axios from 'axios';
+import { DataContext } from "../context/DataProvider";
 
 export default function RegistrationForm({ setOpen }) {
   const [err, setErr] = useState("");
@@ -124,9 +125,9 @@ export default function RegistrationForm({ setOpen }) {
       {step === 2 && (
         <>
           {formData.graduationYear > currentYear ? (
-            <StudentForm formData={formData} />
+            <StudentForm formData={formData} setOpen={setOpen} />
           ) : (
-            <AlumniForm formData={formData} />
+            <AlumniForm formData={formData} setOpen={setOpen}/>
           )}
         </>
       )}
@@ -134,10 +135,16 @@ export default function RegistrationForm({ setOpen }) {
   );
 }
 
-function StudentForm({ formData }) {
+function StudentForm({ formData,setOpen }) {
   const [events, setEvents] = useState([]);
   const [totalCost, setTotalCost] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [eventGuests, setEventGuests] = useState({
+    "Marathon": 0,
+    "Alumni Family Connect": 0,
+    "Gala Dinner & Cultural Program": 0,
+  });
+  const {setReceiptData,setPaymentDone}=useContext(DataContext);
 
   const eventCosts = {
     "Marathon": 100,
@@ -147,24 +154,33 @@ function StudentForm({ formData }) {
 
   const handlePayNow = async () => {
     setLoading(true);
-    
+  
     try {
+      // Filter eventGuests to only include events with more than 0 guests
+      const filteredEventGuests = Object.fromEntries(
+        Object.entries(eventGuests).filter(([event, guests]) => guests > 0)
+      );
+  
       const payload = {
-        formData,        
-        events,          
-        totalCost,
+        formData,       // All form data including name, mobile, email, etc.
+        events,         // List of selected events
+        totalCost,      // Total cost to pay
+        eventGuests: filteredEventGuests // Only events with more than 0 guests
       };
+  
       console.log(payload);
-      
-    //   const response = await axios.post("your-api-endpoint", payload);
-
-    //   if (response.status === 200) {
-    //     // Handle success response
-    //     console.log("Payment successful", response.data);
-    //   } else {
-    //     // Handle failure
-    //     console.error("Payment failed", response.data);
-    //   }
+      setReceiptData(payload);
+  
+      // const response = await axios.post("your-api-endpoint", payload);
+  
+      // if (response.status === 200) {
+        setPaymentDone(true);
+        setOpen(false);
+      //   console.log("Payment successful", response.data);
+      // } else {
+      //   // Handle failure
+      //   console.error("Payment failed", response.data);
+      // }
     } catch (error) {
       console.error("Error in payment API", error);
     } finally {
@@ -183,10 +199,16 @@ function StudentForm({ formData }) {
 
   const handleEventChange = (e) => {
     const { value, checked } = e.target;
+
+    // Update eventGuests when checkbox is checked or unchecked
+    setEventGuests((prevState) => ({
+      ...prevState,
+      [value]: checked ? 1 : 0,  // Set 1 if checked, 0 if unchecked
+    }));
+
+    // Update events list based on checkbox state
     setEvents((prevEvents) =>
-      checked
-        ? [...prevEvents, value]
-        : prevEvents.filter((event) => event !== value)
+      checked ? [...prevEvents, value] : prevEvents.filter((event) => event !== value)
     );
   };
 
@@ -264,7 +286,7 @@ function StudentForm({ formData }) {
   );
 }
 
-function AlumniForm({ formData }) {
+function AlumniForm({ formData,setOpen }) {
     const [isBringingGuest, setIsBringingGuest] = useState(false);
     const [loading, setLoading] = useState(false);
     const [eventGuests, setEventGuests] = useState({
@@ -274,6 +296,7 @@ function AlumniForm({ formData }) {
     });
     const [events, setEvents] = useState([]);
     const [totalCost, setTotalCost] = useState(0);
+    const {setReceiptData,setPaymentDone}=useContext(DataContext);
   
     const eventCosts = {
       "Marathon": 100,
@@ -292,16 +315,19 @@ function AlumniForm({ formData }) {
       
           const payload = {
             formData,       // All form data including name, mobile, email, etc.
+            events,         // List of selected events
             totalCost,      // Total cost to pay
             eventGuests: filteredEventGuests // Only events with more than 0 guests
           };
       
           console.log(payload);
+          setReceiptData(payload);
       
           // const response = await axios.post("your-api-endpoint", payload);
       
           // if (response.status === 200) {
-          //   // Handle success response
+            setPaymentDone(true);
+            setOpen(false);
           //   console.log("Payment successful", response.data);
           // } else {
           //   // Handle failure

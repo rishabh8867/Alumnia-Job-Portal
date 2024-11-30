@@ -1,7 +1,13 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import { Backdrop } from "@mui/material";
+import { Backdrop, Button } from "@mui/material";
 import RegistrationForm from "../components/RegistrationForm";
+import { DataContext } from "../context/DataProvider";
+import Receipt from "../components/Receipt";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+import DownloadIcon from '@mui/icons-material/Download';
+import { CircularProgress } from "@mui/material";
 
 export default function Home() {
 
@@ -23,6 +29,35 @@ export default function Home() {
   const handleOpen = () => {
     setOpen(true);
   };
+
+  const {receiptData,paymentDone}=useContext(DataContext);
+
+  const downloadReceipt = () => {
+    setLoading(true);
+    const input = document.getElementById('receipt'); // Get the receipt component
+    html2canvas(input, {
+      scrollX: 0,
+      scrollY: 0,
+      x: 0,
+      y: 0,
+      width: input.scrollWidth,
+      height: input.scrollHeight,
+      scale: 2, // Scale the image for better quality
+    }).then((canvas) => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4'); // 'a4' is the page size for A4
+      const pdfWidth = 210; // A4 width in mm
+      const pdfHeight = 297; // A4 height in mm
+  
+      // Add the image to the PDF with the appropriate dimensions and margin
+      pdf.addImage(imgData, 'PNG', 10, 10, pdfWidth - 20, pdfHeight - 20); // 10mm margin
+      pdf.save('72nd_SGSITS_Alumni_Day_receipt.pdf'); // Trigger the download
+      setLoading(false);
+    });
+  };
+  
+
+  const [loading, setLoading] = useState(false);
 
   return (
     <div className="bg-white text-black">
@@ -47,7 +82,47 @@ export default function Home() {
             Itinerary
           </button>
         </div>
+        {paymentDone && (
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<DownloadIcon />}
+            onClick={downloadReceipt}
+            disabled={loading} // Disable the button when loading
+            style={{
+              marginTop: "20px",
+              marginBottom: "20px",
+              fontSize: "16px",
+              borderRadius: "8px",
+              textTransform: "none",
+              backgroundColor: "#4caf50",
+              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+              '&:hover': {
+                backgroundColor: "#388e3c",
+              },
+            }}
+          >
+            {loading ? (
+              <CircularProgress size={24} color="inherit" />
+            ) : (
+              "Download Receipt"
+            )}
+          </Button>
+         
+
+        )}
+        {paymentDone && (
+           <div>
+           <Receipt
+             formData={receiptData.formData}
+             events={receiptData.events}
+             totalCost={receiptData.totalCost}
+             eventGuests={receiptData.eventGuests}
+           />
+         </div>
+        )}
       </section>
+ 
 
       {/* Event Image */}
       <section className="flex justify-center px-8 md:px-20">
@@ -604,8 +679,7 @@ export default function Home() {
                   <RegistrationForm setOpen={setOpen}/>
                  </div>
             </Backdrop>
-          
-
+      
     </div>
   );
 }

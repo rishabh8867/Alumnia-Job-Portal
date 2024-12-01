@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Drawer, IconButton, List, ListItem, ListItemText, Button } from "@mui/material";
+import { Drawer, IconButton, List, ListItem, ListItemText} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import HomeIcon from "@mui/icons-material/Home";
+import EventNoteIcon from "@mui/icons-material/EventNote";
+import TimelineIcon from "@mui/icons-material/Timeline";
+import LightbulbCircleIcon from '@mui/icons-material/LightbulbCircle';
 
 export default function Header({ handleScrollToHero, handleScrollToEventDetails, handleScrollToTimeline,handleScrollToAlumniHighlights,handleOpen }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -12,16 +16,16 @@ export default function Header({ handleScrollToHero, handleScrollToEventDetails,
   };
 
   const navItems = [
-    { name: "HomePage", action: handleScrollToHero },
-    { name: "Events Details", action: handleScrollToEventDetails },
-    { name: "Timeline", action: handleScrollToTimeline },
-    { name: "Alumni Spotlights", action: handleScrollToAlumniHighlights },
+    { name: "HomePage", action: handleScrollToHero, icon: <HomeIcon /> },
+    { name: "Events Details", action: handleScrollToEventDetails, icon: <EventNoteIcon /> },
+    { name: "Timeline", action: handleScrollToTimeline, icon: <TimelineIcon /> },
+    { name: "Alumni Spotlights", action: handleScrollToAlumniHighlights, icon: <LightbulbCircleIcon /> },
   ];
 
   const DrawerList = (
-    <div className="w-48 p-4">
+    <div className="w-52">
       <List>
-        {navItems.map((item) => (
+        {navItems.map((item, index) => (
           <ListItem
             button
             key={item.name}
@@ -33,22 +37,27 @@ export default function Header({ handleScrollToHero, handleScrollToEventDetails,
                 window.location.href = item.link;
               }
             }}
-            className={`${
-              location.pathname === item.link ? "text-[#723F14] font-bold" : "text-slate-500"
-            }`}
+            className="flex justify-between items-center bg-slate-100 my-2 mx-2 rounded-xl"
           >
             <Link
-              to={item.link ? item.link : '#'}
-              className="block w-full"
+              to={item.link ? item.link : "#"}
+              className="w-full flex justify-between items-center"
               style={{ textDecoration: "none" }}
             >
-              <ListItemText primary={item.name} />
+              {/* Text */}
+              <ListItemText
+                primary={item.name}
+                className="text-slate-700 rounded-lg text-sm md:text-base font-medium hover:bg-gray-100 hover:text-[#723F14] hover:border-[#723F14] transition-all duration-300"
+              />
+              {/* Placeholder Icon */}
+              {item.icon}
             </Link>
           </ListItem>
         ))}
       </List>
     </div>
   );
+  
 
   return (
     <header className="bg-[#fef6ef] shadow-md font-semibold text-slate-500 w-full fixed  z-40">

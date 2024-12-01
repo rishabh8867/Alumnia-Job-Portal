@@ -114,7 +114,7 @@ export default function RegistrationForm({ setOpen }) {
               <button
                 type="button"
                 onClick={handleProceed}
-                className="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
               >
                 Proceed <ArrowForwardIcon />
               </button>
@@ -271,7 +271,7 @@ function StudentForm({ formData,setOpen }) {
           disabled={loading}
           type="button"
           onClick={handlePayNow}
-          className="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          className="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
         >
           {loading ? (
             <CircularProgress size={24} color="inherit" />
@@ -517,7 +517,7 @@ function AlumniForm({ formData,setOpen }) {
             disabled={loading}
             onClick={handlePayNow}
             type="button"
-            className="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
           >
             {loading ? (
               <CircularProgress size={24} color="inherit" />

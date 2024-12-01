@@ -11,7 +11,8 @@ import { CircularProgress } from "@mui/material";
 import EventDetailsModal from "../components/EventDetailsModal";
 import Header from "./../components/Header";
 import AlumniHighlights from "../components/AlumniHighlights";
-import Footer from './../components/Footer';
+import Footer from "./../components/Footer";
+import { eventsData } from "../constants/data";
 
 export default function Home() {
   const eventTimelineRef = useRef(null);
@@ -31,14 +32,13 @@ export default function Home() {
       const offset = 50; // Adjust this value to match the height of your fixed header
       const elementPosition = ref.current.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - offset;
-  
+
       window.scrollTo({
         top: offsetPosition,
         behavior: "smooth",
       });
     }
   };
-  
 
   const handleClose = () => {
     setOpen(false);
@@ -80,46 +80,6 @@ export default function Home() {
     setIsModalOpen(false);
   };
 
-
-  const eventsData = {
-    "Welcome Reception": {
-      title: "Welcome Reception",
-      time: "7:00 PM - 7:15 PM",
-      location: "Silveria Auditorium",
-      description:
-        "Join us for a warm welcome and networking opportunities with fellow alumni and students.",
-      highlights: [
-        "Welcome speech from the alumni association.",
-        "Networking with alumni and students.",
-        "Snacks and refreshments will be served.",
-      ],
-    },
-    "Zumba Session": {
-      title: "Zumba Session",
-      time: "7:30 AM - 8:00 AM",
-      location: "College Main Ground",
-      description:
-        "Following the marathon, join us for a high-energy Zumba session to shake off the morning stiffness and get the heart pumping.",
-      highlights: [
-        "Open to both alumni and existing students.",
-        "An inclusive, invigorating session to encourage health and wellness.",
-      ],
-    },
-    "Breakfast – Indore Ki Shaan": {
-      title: "Breakfast – Indore Ki Shaan",
-      time: "9:00 AM - 10:00 AM",
-      location: "College Canteen Area",
-      description:
-        "Treat yourself to a delightful breakfast featuring Indore’s famous delicacies, including Poha, Jalebi, Kachori, and more.",
-      highlights: [
-        "Breakfast will be served buffet-style with live counters for tea and coffee.",
-        "An opportunity for alumni and students to mingle and exchange stories over breakfast.",
-        "Included in Participation Fee for Marathon Participants.",
-      ],
-    },
-  };
-
-
   return (
     <div className="bg-white text-black">
       <Header
@@ -128,7 +88,9 @@ export default function Home() {
           handleScrollToSection(eventDetailsRef)
         }
         handleScrollToTimeline={() => handleScrollToSection(eventTimelineRef)}
-        handleScrollToAlumniHighlights={() => handleScrollToSection(alumniHighlightsRef)}
+        handleScrollToAlumniHighlights={() =>
+          handleScrollToSection(alumniHighlightsRef)
+        }
         handleOpen={handleOpen}
       />
       {/* Hero Section */}
@@ -155,7 +117,7 @@ export default function Home() {
               Register
             </button>
             <button
-              onClick={()=>handleScrollToSection(eventTimelineRef)}
+              onClick={() => handleScrollToSection(eventTimelineRef)}
               className="border-2 border-[#b5895a] text-[#b5895a] hover:opacity-90 font-semibold py-2 px-6 rounded-md flex-1 mx-2"
             >
               Itinerary
@@ -170,7 +132,7 @@ export default function Home() {
                 className="w-full py-2 px-4 shadow-sm text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700"
               >
                 {loading ? (
-                  <CircularProgress size={24} color="inherit" />
+                  <CircularProgress size={18} color="inherit" />
                 ) : (
                   <span>
                     Download Receipt <DownloadIcon />
@@ -349,11 +311,6 @@ export default function Home() {
               </div>
 
               <div className="w-1/2"></div>
-              <EventDetailsModal
-                isOpen={isModalOpen}
-                onClose={handleCloseModal}
-                eventDetails={eventDetails}
-              />
             </div>
 
             {/* Marathon */}
@@ -374,12 +331,12 @@ export default function Home() {
                       <LocationOnIcon />
                       From College Main Gate to College Main Ground
                     </p>
-                    <a
-                      href="/"
+                    <button
+                      onClick={() => handleOpenModal("Marathon")}
                       className="text-[#723F14] font-semibold text-sm hover:underline"
                     >
                       See Details
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -399,12 +356,14 @@ export default function Home() {
                     <p className="text-xs md:text-base text-gray-500">
                       <LocationOnIcon /> College Canteen Area
                     </p>
-                    <a
-                      href="/"
+                    <button
+                      onClick={() =>
+                        handleOpenModal("Indore Special Breakfast")
+                      }
                       className="text-[#723F14] font-semibold text-sm hover:underline"
                     >
                       See Details
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -447,12 +406,14 @@ export default function Home() {
                       <LocationOnIcon />
                       Silveria Hall and Ground
                     </p>
-                    <a
-                      href="/"
+                    <button
+                      onClick={() =>
+                        handleOpenModal("Family Connect Activities")
+                      }
                       className="text-[#723F14] font-semibold text-sm hover:underline"
                     >
                       See Details
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -482,12 +443,12 @@ export default function Home() {
                       <LocationOnIcon />
                       Silveria Hall and campus ground
                     </p>
-                    <a
-                      href="/"
+                    <button
+                      onClick={() => handleOpenModal("Lunch")}
                       className="text-[#723F14] font-semibold text-sm hover:underline"
                     >
                       See Details
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -508,12 +469,12 @@ export default function Home() {
                       <LocationOnIcon />
                       College Campus
                     </p>
-                    <a
-                      href="/"
+                    <button
+                      onClick={() => handleOpenModal("Campus Tour")}
                       className="text-[#723F14] font-semibold text-sm hover:underline"
                     >
                       See Details
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -557,12 +518,12 @@ export default function Home() {
                       <LocationOnIcon />
                       Silveria Auditorium
                     </p>
-                    <a
-                      href="/"
+                    <button
+                      onClick={() => handleOpenModal("Welcome Reception")}
                       className="text-[#723F14] font-semibold text-sm hover:underline"
                     >
                       See Details
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -595,12 +556,12 @@ export default function Home() {
                       <LocationOnIcon />
                       Silveria Auditorim
                     </p>
-                    <a
-                      href="/"
+                    <button
+                      onClick={() => handleOpenModal("Cultural Performances")}
                       className="text-[#723F14] font-semibold text-sm hover:underline"
                     >
                       See Details
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -612,7 +573,7 @@ export default function Home() {
                 <div className="flex justify-end">
                   <div className=" bg-gray-50 rounded-lg shadow-md p-6">
                     <h3 className="text-lg md:text-xl font-bold">
-                      Falicitation Ceremony
+                      Felicitation Ceremony
                     </h3>
                     <p className="text-gray-600 text-xs md:text-lg">
                       8:00 PM - 8:15 PM
@@ -621,12 +582,12 @@ export default function Home() {
                       <LocationOnIcon />
                       Silveria Auditorium
                     </p>
-                    <a
-                      href="/"
+                    <button
+                      onClick={() => handleOpenModal("Felicitation Ceremony")}
                       className="text-[#723F14] font-semibold text-sm hover:underline"
                     >
                       See Details
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -657,12 +618,14 @@ export default function Home() {
                       <LocationOnIcon />
                       Silveria Auditorium
                     </p>
-                    <a
-                      href="/"
+                    <button
+                      onClick={() =>
+                        handleOpenModal("Alumni Address and Vote of thanks")
+                      }
                       className="text-[#723F14] font-semibold text-sm hover:underline"
                     >
                       See Details
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -682,12 +645,12 @@ export default function Home() {
                       <LocationOnIcon />
                       Open Air Area Dinner
                     </p>
-                    <a
-                      href="/"
+                    <button
+                      onClick={() => handleOpenModal("Gala Dinner")}
                       className="text-[#723F14] font-semibold text-sm hover:underline"
                     >
                       See Details
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -758,6 +721,20 @@ export default function Home() {
         </div>
       </div>
 
+      <div className="m-4" ref={alumniHighlightsRef}>
+        <h3 className="text-center p-2 text-2xl md:text-4xl font-bold font-poppins ">
+          Alumni Spotlights
+        </h3>
+        <AlumniHighlights />
+      </div>
+
+      <Footer />
+
+      <EventDetailsModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        eventDetails={eventDetails}
+      />
       <Backdrop
         sx={(theme) => ({
           color: "#fff",
@@ -770,13 +747,6 @@ export default function Home() {
           <RegistrationForm setOpen={setOpen} />
         </div>
       </Backdrop>
-
-      <div className="m-4" ref={alumniHighlightsRef} >
-        <h3 className="text-center p-2 text-2xl md:text-4xl font-bold font-poppins " >Alumni Spotlights</h3>
-        <AlumniHighlights />
-      </div>
-
-      <Footer />
     </div>
   );
 }

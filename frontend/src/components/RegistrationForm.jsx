@@ -149,7 +149,7 @@ function StudentForm({ formData,setOpen }) {
   const eventCosts = {
     "Marathon": 100,
     "Alumni Family Connect": 200,
-    "Gala Dinner & Cultural Program": 500,
+    "Gala Dinner & Cultural Program": 200,
   };
 
   const handlePayNow = async () => {
@@ -241,7 +241,7 @@ function StudentForm({ formData,setOpen }) {
                 value="Alumni Family Connect"
               />
             }
-            label="Alumni Family Connect (Rs. 200/per person)"
+            label="Alumni Family Connect,Lunch(Rs. 200/per person)"
           />
         </div>
 
@@ -255,7 +255,7 @@ function StudentForm({ formData,setOpen }) {
                 value="Gala Dinner & Cultural Program"
               />
             }
-            label="Gala Dinner & Cultural Program (Rs. 500/individual)"
+            label="Gala Dinner & Cultural Program (Rs. 200/individual)"
           />
         </div>
       </FormControl>
@@ -299,7 +299,7 @@ function AlumniForm({ formData,setOpen }) {
     const {setReceiptData,setPaymentDone}=useContext(DataContext);
   
     const eventCosts = {
-      "Marathon": 100,
+      "Marathon": 200,
       "Alumni Family Connect": 1000,
       "Gala Dinner & Cultural Program": 500,
     };
@@ -426,7 +426,7 @@ function AlumniForm({ formData,setOpen }) {
                 value="Marathon"
               />
             }
-            label="Marathon (Rs. 100/per person)"
+            label="Marathon (Rs. 200/per person)"
           />
           {events.includes("Marathon") && isBringingGuest && (
             <div>

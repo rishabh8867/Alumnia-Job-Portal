@@ -3,19 +3,19 @@ import { Link, useLocation } from "react-router-dom";
 import { Drawer, IconButton, List, ListItem, ListItemText, Button } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 
-export default function Header() {
+export default function Header({ handleScrollToHero, handleScrollToEventDetails, handleScrollToTimeline,handleScrollToAlumniHighlights,handleOpen }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const location = useLocation(); // Get the current path to highlight the active link
+  const location = useLocation();
 
   const toggleDrawer = (open) => () => {
     setDrawerOpen(open);
   };
 
   const navItems = [
-    { name: "HomePage", link: "/homepage" },
-    { name: "Events Details", link: "/event-details" },
-    { name: "Timeline", link: "/timeline" },
-    { name: "Alumni Spotlights", link: "/alumni-spotlights" },
+    { name: "HomePage", action: handleScrollToHero },
+    { name: "Events Details", action: handleScrollToEventDetails },
+    { name: "Timeline", action: handleScrollToTimeline },
+    { name: "Alumni Spotlights", action: handleScrollToAlumniHighlights },
   ];
 
   const DrawerList = (
@@ -25,13 +25,20 @@ export default function Header() {
           <ListItem
             button
             key={item.name}
-            onClick={() => setDrawerOpen(false)}
+            onClick={() => {
+              setDrawerOpen(false);
+              if (item.action) {
+                item.action();
+              } else if (item.link) {
+                window.location.href = item.link;
+              }
+            }}
             className={`${
               location.pathname === item.link ? "text-[#723F14] font-bold" : "text-slate-500"
             }`}
           >
             <Link
-              to={item.link}
+              to={item.link ? item.link : '#'}
               className="block w-full"
               style={{ textDecoration: "none" }}
             >
@@ -48,31 +55,31 @@ export default function Header() {
       <div className="flex items-center justify-between px-4 py-2 md:px-8">
         {/* Logo */}
         <div className="flex items-center">
-          <img src="/logo.png" alt="Logo" className="h-10 mr-4" />
+          <img src="/logo.png" alt="Logo" className="h-10 mr-4 cursor-pointer" onClick={handleScrollToHero} />
         </div>
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex space-x-12">
           {navItems.map((item) => (
-            <Link
+            <button
               key={item.name}
-              to={item.link}
+              onClick={item.action ? item.action : () => window.location.href = item.link}
               className={`text-lg ${
                 location.pathname === item.link
                   ? "text-[#723F14] font-bold"
                   : "hover:text-[#723F14]"
               }`}
-              style={{ textDecoration: "none" }}
+              style={{ textDecoration: "none", background: "none", border: "none", padding: "0", cursor: "pointer" }}
             >
               {item.name}
-            </Link>
+            </button>
           ))}
         </nav>
 
         {/* Register Button (Desktop) */}
         <div className="hidden lg:block">
           <button
-            variant="contained"
+            onClick={handleOpen}
             className="bg-[#723F14] text-white hover:opacity-90 rounded-lg px-6 py-2"
           >
             Register

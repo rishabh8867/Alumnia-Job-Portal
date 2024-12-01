@@ -1,10 +1,10 @@
 export const bannerData = [
-    { id: 1, url: '/alumni1.jpg' },
-    { id: 2, url: '/alumni2.jpg' },
-    { id: 3, url: '/alumni3.jpg' },
-    { id: 4, url: '/alumni1.jpg' },
-    { id: 5, url: '/alumni2.jpg' },
-    { id: 6, url: '/alumni3.jpg' }
+    { id: 1, url: '/marathon.png' },
+    { id: 2, url: '/poha.png' },
+    { id: 3, url: '/zumba.png' },
+    { id: 4, url: '/campus.png' },
+    { id: 5, url: '/connect.png' },
+    { id: 6, url: '/dinner.png' }
 ]
 
 export const eventsData = {

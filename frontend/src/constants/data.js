@@ -1,5 +1,5 @@
 export const bannerData = [
-    { id: 1, url: '/marathon.png' },
+    { id: 1, url: '/alumni1.png' },
     { id: 2, url: '/poha.png' },
     { id: 3, url: '/zumba.png' },
     { id: 4, url: '/campus.png' },

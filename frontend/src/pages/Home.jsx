@@ -206,7 +206,8 @@ export default function Home() {
               <img
                 src="/zumba.png"
                 alt="Zumba Section"
-                className="w-full object-fit rounded-lg shadow-lg"
+                className="w-full object-fit rounded-lg shadow-lg cursor-pointer"
+                onClick={() => handleOpenModal("Zumba Session")}
               />
             </div>
             {/* Indore Special Breakfast */}
@@ -214,7 +215,10 @@ export default function Home() {
               <img
                 src="/poha.png"
                 alt="Indore Special Breakfast"
-                className="w-full object-fit rounded-lg shadow-lg"
+                className="w-full object-fit rounded-lg shadow-lg cursor-pointer"
+                onClick={() =>
+                  handleOpenModal("Indore Special Breakfast")
+                }
               />
             </div>
             {/* Campus Tour */}
@@ -222,7 +226,8 @@ export default function Home() {
               <img
                 src="/campus.png"
                 alt="Campus Tour"
-                className="w-full object-fit rounded-lg shadow-lg"
+                className="w-full object-fit rounded-lg shadow-lg cursor-pointer"
+                onClick={() => handleOpenModal("Campus Tour")}
               />
             </div>
           </div>
@@ -233,7 +238,8 @@ export default function Home() {
             <img
               src="/marathon.png"
               alt="Marathon"
-              className="w-full object-fit rounded-lg shadow-lg"
+              className="w-full object-fit rounded-lg shadow-lg cursor-pointer"
+              onClick={() => handleOpenModal("Marathon")}
             />
           </div>
 
@@ -241,7 +247,10 @@ export default function Home() {
             <img
               src="/connect.png"
               alt="Family Connect Activity"
-              className="w-full object-fit rounded-lg shadow-lg"
+              className="w-full object-fit rounded-lg shadow-lg cursor-pointer"
+              onClick={() =>
+                handleOpenModal("Family Connect Activities")
+              }
             />
           </div>
         </div>
@@ -250,7 +259,8 @@ export default function Home() {
         <img
           src="/dinner.png"
           alt="Gala Dinner & Cultural Night"
-          className="w-full object-fit rounded-lg shadow-lg"
+          className="w-full object-fit rounded-lg shadow-lg cursor-pointer"
+          onClick={() => handleOpenModal("Gala Dinner")}
         />
       </div>
 
@@ -391,7 +401,7 @@ export default function Home() {
           <div className="absolute top-0 left-1/2 w-1 bg-gray-200 h-full transform -translate-x-1/2"></div>
           {/* Timeline Items */}
           <div className="flex flex-col md:space-y-8">
-            {/* Zumba Session */}
+            {/* Family Connect Activities Session */}
             <div className="flex items-center">
               <div className="w-1/2 text-right">
                 <div className="flex justify-end">
@@ -425,7 +435,7 @@ export default function Home() {
               <div className="w-1/2"></div>
             </div>
 
-            {/* Marathon */}
+            {/* Lunch */}
             <div className="flex items-center">
               <div className="w-1/2"></div>
               <div className="relative w-10 flex justify-center">
@@ -454,7 +464,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Indore Special Breakfast */}
+            {/* College Campus */}
             <div className="flex items-center">
               <div className="w-1/2 text-right">
                 <div className="flex justify-end">
@@ -502,7 +512,7 @@ export default function Home() {
           <div className="absolute top-0 left-1/2 w-1 bg-gray-200 h-full transform -translate-x-1/2"></div>
           {/* Timeline Items */}
           <div className="flex flex-col md:space-y-8">
-            {/* Zumba Session */}
+            {/* Welcome Reception */}
 
             <div className="flex items-center">
               <div className="w-1/2 text-right">
@@ -536,7 +546,7 @@ export default function Home() {
               <div className="w-1/2"></div>
             </div>
 
-            {/* Marathon */}
+            {/* Cultural Performances */}
             <div className="flex items-center">
               <div className="w-1/2"></div>
               <div className="relative w-10 flex justify-center">
@@ -567,7 +577,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Indore Special Breakfast */}
+            {/*  Felicitation Ceremony */}
             <div className="flex items-center">
               <div className="w-1/2 text-right">
                 <div className="flex justify-end">
@@ -598,7 +608,7 @@ export default function Home() {
               <div className="w-1/2"></div>
             </div>
 
-            {/* Marathon */}
+            {/* Alumni Address and Vote of thanks */}
             <div className="flex items-center">
               <div className="w-1/2"></div>
               <div className="relative w-10 flex justify-center">

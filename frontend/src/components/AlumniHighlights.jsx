@@ -1,6 +1,6 @@
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { bannerData } from "../constants/data";
+import { bannerData1, bannerData2 } from "../constants/data";
 
 const responsive = {
   desktop: {
@@ -48,7 +48,7 @@ export default function AlumniHighlights() {
             containerClass="carousel-container"
             removeArrowOnDeviceType={["tablet", "mobile", "desktop"]}
           >
-            {bannerData.map((items) => (
+            {bannerData1.map((items) => (
               <div className="second" key={items.id}>
                 <img
                   src={items.url}
@@ -71,7 +71,7 @@ export default function AlumniHighlights() {
             containerClass="carousel-container"
             removeArrowOnDeviceType={["tablet", "mobile", "desktop"]}
           >
-            {bannerData.map((items) => (
+            {bannerData2.map((items) => (
               <div className="second md:mr-5 overflow-hidden " key={items.id}>
                 <img
                   src={items.url}
